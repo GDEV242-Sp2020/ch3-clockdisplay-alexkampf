@@ -11,6 +11,7 @@
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 2011.07.31
+ * modified into displaying civilian 12 hour time by Alex Kampf
  */
 public class ClockDisplay
 {
