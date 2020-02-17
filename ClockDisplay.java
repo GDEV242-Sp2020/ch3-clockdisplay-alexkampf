@@ -24,7 +24,7 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         updateDisplay();
     }
@@ -36,7 +36,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
@@ -78,6 +78,8 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
+        int hour = hours.getValue();
+        String AMPM; //no idea how to get AMPM to display when clock resets at 12 hours
         displayString = hours.getDisplayValue() + ":" + 
                         minutes.getDisplayValue();
     }
