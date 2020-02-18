@@ -11,13 +11,14 @@
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 2011.07.31
+ * modified into 12 hour clock by Alexander Kampf
  */
 public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
-    
+    private String AMPM;
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
@@ -27,6 +28,7 @@ public class ClockDisplay
         hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         updateDisplay();
+        AMPM = "AM";
     }
 
     /**
@@ -34,11 +36,12 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String AMorPM)
     {
         hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        setTime(hour, minute);
+        AMPM = AMorPM;
+        setTime(hour, minute, AMPM);
     }
 
     /**
@@ -51,6 +54,14 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
         }
+        if(hours.getValue() == 0 && minutes.getValue() == 0 && AMPM == "AM")
+    {
+        AMPM = "PM";
+    }
+    else if(hours.getValue() == 0 && minutes.getValue() == 0 && AMPM == "PM")
+    {
+        AMPM = "AM";
+    }
         updateDisplay();
     }
 
@@ -58,7 +69,7 @@ public class ClockDisplay
      * Set the time of the display to the specified hour and
      * minute.
      */
-    public void setTime(int hour, int minute)
+    public void setTime(int hour, int minute, String AMorPM)
     {
         hours.setValue(hour);
         minutes.setValue(minute);
@@ -79,8 +90,15 @@ public class ClockDisplay
     private void updateDisplay()
     {
         int hour = hours.getValue();
-        String AMPM; //no idea how to get AMPM to display when clock resets at 12 hours
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        if(hour == 0)
+        {
+            hour = 12;
+        displayString = 12 + ":" + 
+                        minutes.getDisplayValue() + " " + AMPM;
+        }
+        else{
+            displayString = hours.getDisplayValue() + ":" + 
+            minutes .getDisplayValue() + " " + AMPM;
+        }
     }
 }
